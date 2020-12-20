@@ -9,4 +9,4 @@ Unity から ブラウザを操作
 ![](webgl-internal-2.gif)
 
 # WebSite
-https://noitalog.tokyo/webgl-internal/
+https://noitalog.tokyo/unity-webgl-internal/
