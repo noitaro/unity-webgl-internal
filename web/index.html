@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | New Unity Project</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="text-align: center" class="m-3">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-auto">
+        <canvas class="border border-success" id="unity-canvas" style="width: 270px; height: 480px; background: #FFFFFF"></canvas>
+      </div>
+      <div class="col-auto">
+
+        <div class="border border-success p-3">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm" id="exampleInput1">
+            </div>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="unitySendMessage()">Unityに送信</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="Build/web.loader.js"></script>
+  <script>
+    var unityInstance = null;
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      dataUrl: "Build/web.data",
+      frameworkUrl: "Build/web.framework.js",
+      codeUrl: "Build/web.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "New Unity Project",
+      productVersion: "0.1",
+    }).then(x => unityInstance = x);
+  </script>
+  <script> 
+    document.addEventListener('click', function(e) { 
+     if (e.target.id == "unity-canvas") { 
+      // Clicked on canvas 
+      unityInstance.SendMessage("Button", "FocusCanvas", "1");
+     } else { 
+      // Clicked outside of canvas 
+      unityInstance.SendMessage("Button", "FocusCanvas", "0");
+     } 
+    }); 
+    function unitySendMessage(params) {
+      unityInstance.SendMessage("Button", "SetInputFieldText", $("#exampleInput1").val());
+    }
+</script> 
+</body>
+
+</html>
